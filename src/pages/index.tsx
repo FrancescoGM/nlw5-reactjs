@@ -9,6 +9,7 @@ import { format } from '../utils/format'
 import { parseISO } from 'date-fns'
 import { convertDurationToTimeString } from '../utils/convertDurationToTimeString'
 import styles from './home.module.scss'
+import { usePlayer } from '../contexts/PlayerContext'
 interface FormattedEpisode
   extends Omit<Episode, 'published_at' | 'file' | 'description'> {
   durationAsString: string
@@ -22,6 +23,7 @@ interface HomeProps {
 }
 
 const Home: NextPage<HomeProps> = ({ allEpisodes, latestEpisodes }) => {
+  const { play } = usePlayer()
   return (
     <>
       <Head>
@@ -41,12 +43,14 @@ const Home: NextPage<HomeProps> = ({ allEpisodes, latestEpisodes }) => {
                   objectFit="cover"
                 />
                 <div className={styles.episodeDetails}>
-                  <a href={episode.url}>{episode.title}</a>
+                  <Link href={`/episodes/${episode.id}`}>
+                    <a>{episode.title}</a>
+                  </Link>
                   <p>{episode.members}</p>
                   <span>{episode.publishedAt}</span>
                   <span>{episode.durationAsString}</span>
                 </div>
-                <button type="button">
+                <button type="button" onClick={() => play(episode)}>
                   <img src="/icons/play-green.svg" alt="Tocar Episódio" />
                 </button>
               </li>
@@ -87,7 +91,7 @@ const Home: NextPage<HomeProps> = ({ allEpisodes, latestEpisodes }) => {
                   <td style={{ width: 100 }}>{episode.publishedAt}</td>
                   <td>{episode.durationAsString}</td>
                   <td>
-                    <button type="button">
+                    <button type="button" onClick={() => play(episode)}>
                       <img src="/icons/play-green.svg" alt="Tocar episódio" />
                     </button>
                   </td>
