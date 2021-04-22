@@ -1,10 +1,9 @@
 import React from 'react'
+import { format } from '../../utils/format'
 import styles from './styles.module.scss'
-import { format } from 'date-fns'
-import ptBR from 'date-fns/locale/pt-BR'
 
 export const Header = () => {
-  const currentDate = format(new Date(), 'EEEEEE, d MMM', { locale: ptBR })
+  const currentDate = format(new Date(), 'EEEEEE, d MMM')
 
   return (
     <header className={styles.container}>
