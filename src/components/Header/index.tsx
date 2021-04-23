@@ -7,7 +7,7 @@ export const Header = () => {
 
   return (
     <header className={styles.container}>
-      <img src="/icons/logo.svg" alt="Podcaster" />
+      <img src="/icons/logo.svg" alt="Podcastr" />
       <p>O melhor para você ouvir, sempre</p>
       <span>{currentDate}</span>
     </header>

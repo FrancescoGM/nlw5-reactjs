@@ -16,6 +16,7 @@ import { convertDurationToTimeString } from '../../utils/convertDurationToTimeSt
 
 import styles from './episode.module.scss'
 import Link from 'next/link'
+import { usePlayer } from '../../contexts/PlayerContext'
 
 interface FormattedEpisode
   extends Omit<EpisodeInterface, 'published_at' | 'file'> {
@@ -30,10 +31,11 @@ interface EpisodeProps {
 }
 
 const Episode: NextPage<EpisodeProps> = ({ episode }) => {
+  const { play } = usePlayer()
   return (
     <>
       <Head>
-        <title>Podcaster | {episode.title ?? 'Nome do episódio'}</title>
+        <title>Podcastr | {episode.title ?? 'Nome do episódio'}</title>
       </Head>
       <div className={styles.episode}>
         <div>
@@ -50,7 +52,7 @@ const Episode: NextPage<EpisodeProps> = ({ episode }) => {
               alt={episode.title}
               objectFit="cover"
             />
-            <button type="button">
+            <button type="button" onClick={() => play(episode)}>
               <img src="/icons/play.svg" alt="Tocar episódio" />
             </button>
           </div>
